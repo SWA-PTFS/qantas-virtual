@@ -1,0 +1,53 @@
+:root {
+--qantas-red: #c8102e;
+--dark: #111;
+}
+
+
+body {
+margin: 0;
+font-family: "Helvetica Neue", Arial, sans-serif;
+background: #fff;
+color: #222;
+}
+
+
+header {
+background: var(--qantas-red);
+color: white;
+padding: 18px;
+}
+
+
+nav a {
+color: white;
+margin-right: 18px;
+text-decoration: none;
+font-weight: 600;
+}
+
+
+.hero {
+padding: 70px 20px;
+background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)), url('https://images.unsplash.com/photo-1542291026-7eec264c27ff');
+background-size: cover;
+color: white;
+text-align: center;
+}
+
+
+button {
+background: var(--qantas-red);
+color: white;
+border: none;
+padding: 12px 20px;
+cursor: pointer;
+}
+
+
+footer {
+background: var(--dark);
+color: white;
+text-align: center;
+padding: 15px;
+}
