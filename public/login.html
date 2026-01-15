@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Admin Login</h1>
+
+<input type="password" id="password" placeholder="Admin Password">
+<button onclick="login()">Login</button>
+
+<p id="status"></p>
+
+<script>
+async function login() {
+  const password = document.getElementById('password').value;
+
+  const res = await fetch('/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ password })
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    window.location.href = 'admin.html';
+  } else {
+    document.getElementById('status').innerText = 'Invalid password';
+  }
+}
+</script>
+
+</body>
+</html>
