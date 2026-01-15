@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Admin Panel</h1>
+
+<h2>Edit Events</h2>
+<textarea id="events" rows="6" style="width:100%"></textarea>
+
+<h2>Edit Staff</h2>
+<textarea id="staff" rows="6" style="width:100%"></textarea>
+
+<br><br>
+<button onclick="save()">Save Changes</button>
+
+<p id="status"></p>
+
+<script>
+async function load() {
+  const res = await fetch('/data');
+  const data = await res.json();
+
+  document.getElementById('events').value = data.events.join('\\n');
+  document.getElementById('staff').value = data.staff.join('\\n');
+}
+
+async function save() {
+  const events = document.getElementById('events').value.split('\\n');
+  const staff = document.getElementById('staff').value.split('\\n');
+
+  await fetch('/admin/update', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ events, staff })
+  });
+
+  document.getElementById('status').innerText = 'Saved successfully';
+}
+
+load();
+</script>
+
+</body>
+</html>
