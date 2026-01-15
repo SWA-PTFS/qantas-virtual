@@ -1,16 +1,24 @@
-const express = require('express');
+import express from "express";
 const app = express();
 
+app.use(express.json());
+app.use(express.static("public"));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+app.post("/login", (req, res) => {
+  const { password } = req.body;
 
-app.post('/apply', (req, res) => {
-console.log('New application:', req.body);
-res.send('Application submitted!');
+  if (!ADMIN_PASSWORD) {
+    console.error("ADMIN_PASSWORD not set");
+    return res.status(500).json({ success: false });
+  }
+
+  if (password === ADMIN_PASSWORD) {
+    res.json({ success: true });
+  } else {
+    res.json({ success: false });
+  }
 });
 
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('Running on ' + PORT));
+app.listen(process.env.PORT || 3000);
